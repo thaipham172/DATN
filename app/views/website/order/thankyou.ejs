@@ -1,0 +1,117 @@
+<%- include('../layouts/header.ejs') %>
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/phong-nghi/">Phòng Nghỉ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="#">Đặt Phòng</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Thông Tin Đặt Phòng</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-xl-12 mb-5" style=" border-radius: 5px; border: 1px solid #808385; padding: 15px;">
+                <b>Thành Công!</b> Chúng tôi đã gửi thông tin đặt phòng tới email <b><%= Email %></b>. Vui lòng kiểm tra email và tra cứu thông tin đặt phòng theo mã đặt phòng được gửi tới email!
+            </div>
+            <div class="col-xl-7" style="border-left: 1px solid; border-radius: 10px;">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Người Đặt</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên người đặt:</b> <%= FullName %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Email:</b> <%= Email %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Số điện thoại:</b>
+                            <%= Phone %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Ngày thuê phòng:</b> <%= startDate %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Ngày trả phòng:</b> <%= endDate %></span>
+                    </div>
+
+                    <div class="p-2 mt-4">
+                        <h4>Mã Tra Cứu</h4>
+                    </div> 
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Mã tra cứu đặt phòng của bạn là:</b> <%= Code %></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-5" style="background: #fff; border-radius: 8px; border: 1px solid #808385; height: FIT-CONTENT;">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Phòng</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên phòng:</b> <%= room.Name %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Số người:</b> Tối đa <%= room.People %> người</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Loại phòng:</b>
+                            <%= room.category.Name %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Giá phòng:</b> <%= room.Price.toLocaleString() %>đ / 1 đêm</span>
+                    </div>
+                    
+                </div>
+
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Tổng Tiền</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tạm tính: </b> <%= room.Price.toLocaleString() %>đ x <%= numberDay %> đêm = <%= (room.Price * numberDay).toLocaleString() %>đ</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Khuyến mãi: </b> 
+                            <% if (numberDay >= 7 && numberDay <= 14) { %>
+                                20%
+                            <% }else if (numberDay >= 15) { %>
+                                30%
+                            <% }else{ %>
+                                0%
+                            <% } %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Tổng thanh toán: </b> <%= Total.toLocaleString() %>đ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-5">
+                <a href="/phong-nghi/" class="theme-element theme-element--accent btn">Tiếp Tục Đặt Phòng</a>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../layouts/footer.ejs') %>

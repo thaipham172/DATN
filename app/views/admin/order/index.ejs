@@ -1,0 +1,133 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Đặt Phòng</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/admin">Trang Chủ</a></li>
+                            <li class="breadcrumb-item active">Đặt Phòng</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Thông tin đặt phòng</h4>
+                    <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row">
+                            <div class="col-sm-12">
+                            	<div class="table-responsive">
+                                    <table class="table mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th tabindex="0" aria-controls="basic-datatable"
+                                                rowspan="1" colspan="1"
+                                                >Hình Ảnh</th>
+	                                            <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Tên Phòng</th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Người Đặt 
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Tổng Tiền
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Trạng Thái
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Thanh Toán
+	                                            </th>
+                                                <th tabindex="0" aria-controls="basic-datatable" rowspan="1"
+	                                                colspan="1"
+	                                                >Hành Động
+	                                            </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% orderList.forEach(function(order) { %>
+                                                <tr role="row" class="odd">
+                                                    <td style="white-space: unset;"><img style="image-rendering: optimizeQuality;" src="<%= order.room.Avatar %>" width="100" height="100"></td>
+    
+                                                    <td style="white-space: unset;"><b><%= order.room.Name %></b></td>
+    
+                                                    <td><%= order.FullName %></td>
+
+                                                    <td><%= order.Total.toLocaleString() %> VND</td>
+
+                                                    <td>
+                                                        <% if(order.StatusOrder == 1){ %>
+                                                            <a class="btn btn-secondary" href="/admin/order/<%= order.Id %>/action/2/">Duyệt Đặt Phòng</a>
+                                                        <% }else if(order.StatusOrder == 2){ %>
+                                                            <a class="btn btn-info" href="/admin/order/<%= order.Id %>/action/3/">Chuẩn Bị Phòng</a>
+                                                        <% }else if(order.StatusOrder == 3){ %>
+                                                            Phòng đã sẵn sàng
+                                                        <% }else if(order.StatusOrder == 0){ %>
+                                                            Đã hủy phòng
+                                                        <% } %>
+                                                        <% if(order.StatusOrder == 1 || order.StatusOrder == 2){ %>
+                                                            <br>
+                                                            <br>
+                                                            <a class="btn btn-danger" href="/admin/order/<%= order.Id %>/action/0/">Hủy Phòng Đặt</a>
+                                                        <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <% if((order.StatusPay == 0) && (order.StatusOrder == 0)){ %>
+                                                            Không được phép
+                                                        <% } else { %>
+                                                            <% if(order.StatusPay == 0){ %>
+                                                                <a class="btn btn-warning" href="/admin/order/<%= order.Id %>/paid/1/">Xác Nhận Thanh Toán</a>
+                                                            <% }else if(order.StatusPay == 1){ %>
+                                                                <% if(order.StatusOrder == 0){ %>
+                                                                    <a class="btn btn-warning" href="/admin/order/<%= order.Id %>/paid/2/">Xác Nhận Hoàn Tiền</a>
+                                                                <% }else{ %>
+                                                                    Đã xác nhận thanh toán
+                                                                <% } %>
+                                                            <% }else if(order.StatusPay == 2){ %>
+                                                                Đã xác nhận hoàn tiền
+                                                            <% } %>
+                                                        <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-primary" href="/admin/order/<%= order.Id %>/">Xem Chi Tiết</a>
+                                                    </td>
+                                                </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="dataTables_paginate paging_simple_numbers" id="basic-datatable_paginate">
+                                    <ul class="pagination pagination-rounded">
+                                        <% for (let i = 1; i <= totalPages; i++) { %>
+                                       	    <li style="margin-right: 5px;" class="paginate_button page-item"><a href="/admin/order/?page=<%= i %>" class="page-link"><%= i %></a></li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- end card body-->
+            </div> <!-- end card -->
+        </div><!-- end col-->
+    </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>

@@ -1,0 +1,130 @@
+<%- include('../layouts/header.ejs') %>
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/phong-nghi/">Phòng Nghỉ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="#">Đặt Phòng</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Đặt Phòng</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-xl-7">
+                <form class="contacts_form form d-sm-flex flex-wrap justify-content-between" action="/dat-phong/thanh-toan/" method="POST">
+                    <% if(locals.error){  %>
+                        <span style="width: 100%; text-align: center; color: #333; font-weight: 500; margin-bottom: 20px;"><%= error %></span>
+                    <% } %>
+                    <input type="hidden" name="RoomId" value="<%= room.Id %>">
+                    <div class="field-wrapper" style="width: 100%;">
+                        <label class="label" for="feedbackName">
+                            <i class="icon-user icon"></i>
+                        </label>
+                        <% if(customer){ %>
+                            <input class="field required" id="feedbackName" type="text" name="FullName" placeholder="Họ tên người đặt" value="<%= customer.FullName %>" required>
+                        <% }else{ %>
+                            <input class="field required" id="feedbackName" type="text" name="FullName" placeholder="Họ tên người đặt" required>
+                        <% } %>
+                    </div>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <label class="label" for="feedbackName">
+                            <i class="icon-phone icon"></i>
+                        </label>
+                        <% if(customer){ %>
+                            <input class="field required" id="feedbackName" type="text" name="Phone" placeholder="Số Điện Thoại" value="<%= customer.Phone %>" required>
+                        <% }else{ %>
+                            <input class="field required" id="feedbackName" type="text" name="Phone" placeholder="Số Điện Thoại" required>
+                        <% } %>
+                    </div>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <label class="label" for="feedbackName">
+                            <i class="icon-email icon"></i>
+                        </label>
+                        <% if(customer){ %>
+                            <input class="field required" id="feedbackName" type="email" name="Email" placeholder="Email" value="<%= customer.Email %>" required> 
+                        <% }else{ %>
+                            <input class="field required" id="feedbackName" type="email" name="Email" placeholder="Email" required>
+                        <% } %>
+                    </div>
+                    <label class="label mb-3" for="dateStart">
+                        <b>Ngày thuê phòng</b>
+                    </label>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <% if(startDate){ %>
+                            <input class="field required" id="dateStart" type="date" name="Start" value="<%=startDate %>" required> 
+                        <% }else{ %>
+                            <input class="field required" id="dateStart" type="date" name="Start" required>
+                        <% } %>
+                    </div>
+                    <label class="label mb-3" for="dateEnd">
+                        <b>Ngày trả phòng</b>
+                    </label>
+                    <div class="field-wrapper" style="width: 100%;">
+                        <% if(endDate){ %>
+                            <input class="field required" id="dateEnd" type="date" name="End" value="<%=endDate %>" required> 
+                        <% }else{ %>
+                            <input class="field required" id="dateEnd" type="date" name="End" required>
+                        <% } %>
+                    </div>
+                    <% if(customer){ %>
+                        <button class="btn theme-element theme-element--accent" type="submit" style="width: 100%; margin-top: 0px; margin-bottom: 30px;">Đặt Phòng</button>
+                    <% }else{ %>
+                        <button class="btn theme-element" type="submit" style="width: 100%; margin-top: 0px; margin-bottom: 30px;">ĐẶT PHÒNG KHÔNG ĐĂNG NHẬP</button>
+                        <a class="btn theme-element theme-element--accent" href="/khach-hang/dang-nhap/" style="width: 100%; margin-top: 0px; margin-bottom: 30px;">ĐĂNG NHẬP ĐẶT PHÒNG</a>
+                    <% } %>
+                    
+                </form>
+            </div>
+
+            <div class="col-xl-5" style="background: #fff; border-radius: 8px; border: 1px solid #808385; height: FIT-CONTENT;">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Phòng</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên phòng:</b> <%= room.Name %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Số người:</b> Tối đa <%= room.People %> người</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Loại phòng:</b>
+                            <%= room.category.Name %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Giá phòng:</b> <%= room.Price.toLocaleString() %>đ / 1 đêm</span>
+                    </div>
+                    
+                </div>
+
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Khuyến Mãi</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span>Giảm tới <b>20%</b> khi bạn thuê phòng từ 7 đến 14 đêm</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>Giảm tới <b>30%</b> khi bạn thuê phòng từ 14 đến 29 đêm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../layouts/footer.ejs') %>

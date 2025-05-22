@@ -1,0 +1,89 @@
+<%- include('../layouts/header.ejs') %>
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">Trang Chủ</h4>
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="/admin/">Hệ Thống</a></li>
+                            <li class="breadcrumb-item active">Trang Chủ</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bx bx-layer float-right m-0 h2 text-muted"></i>
+                    <h6 class="text-muted text-uppercase mt-0">ĐƠN ĐẶT PHÒNG - HÔM NAY</h6>
+                    <h3 class="mb-3" data-plugin="counterup"><%=ordersCount %> đơn đặt phòng</h3>
+                    <span class="badge badge-success mr-1"> 
+                        Tổng <%= ordersWeekCount %> đơn đặt phòng
+                    </span> <span class="text-muted">trong tuần này</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bx bx-dollar-circle float-right m-0 h2 text-muted"></i>
+                    <h6 class="text-muted text-uppercase mt-0">DOANH THU - HÔM NAY</h6>
+                    <h3 class="mb-3"><span data-plugin="counterup"><%= totalForToday %>đ</span></h3>
+                    <span class="badge badge-danger mr-1">
+                        Tổng <%= totalForThisWeek %>đ
+                    </span> <span class="text-muted">trong tuần này</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bx bxs-bed float-right m-0 h2 text-muted"></i>
+                    <h6 class="text-muted text-uppercase mt-0">THÔNG TIN PHÒNG</h6>
+                    <h3 class="mb-3" data-plugin="counterup">
+                        <%= totalRoomsEmpty %> phòng trống
+                    </h3>
+                    <span class="badge badge-success mr-1">
+                        Tổng <%= totalRooms %> phòng nghỉ
+                    </span> <span class="text-muted">trong hệ thống</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <i class="bx bx-layer bx-analyse float-right m-0 h2 text-muted"></i>
+                    <h6 class="text-muted text-uppercase mt-0">THÔNG TIN LOẠI PHÒNG</h6>
+                    <h3 class="mb-3"><span data-plugin="counterup">
+                        <%= totalCategory %> loại phòng
+                    </span></h3>
+                    <span class="badge badge-warning mr-1"></span> <span class="text-muted">Số lượng loại phòng trong hệ thống</span>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <h4 class="card-title d-inline-block">Doanh Thu Theo Tháng</h4>
+                    <canvas id="myChart" style="width: 1027px; display: block; height: 310px;" width="1027" height="310" class="chartjs-render-monitor"></canvas>
+                </div>
+            </div>
+        </div> <!-- end col -->
+
+    </div>
+</div>
+
+<%- include('../layouts/footer.ejs') %>

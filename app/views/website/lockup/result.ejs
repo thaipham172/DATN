@@ -1,0 +1,153 @@
+<%- include('../layouts/header.ejs') %>
+<header class="page">
+    <div class="container">
+        <ul class="breadcrumbs d-flex flex-wrap align-content-center">
+            <li class="list-item">
+                <a class="link" href="/">Trang Chủ</a>
+            </li>
+
+            <li class="list-item">
+                <a class="link" href="/tra-cuu/">Tra Cứu</a>
+            </li>
+        </ul>
+        <h1 class="page_title">Thông Tin Đặt Phòng</h1>
+    </div>
+</header>
+
+<main>
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-xl-7">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Người Đặt</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên người đặt:</b> <%= order.FullName %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Email:</b> <%= order.Email %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Số điện thoại:</b>
+                            <%= order.Phone %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Ngày thuê phòng:</b> <%= Start %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Ngày trả phòng:</b> <%= End %></span>
+                    </div>
+
+                    <div class="p-2 mt-4">
+                        <h4>Trạng Thái</h4>
+                    </div> 
+                    <hr>
+                    <div class="mt-4">
+                        <span>
+                            <b>Thanh toán:</b> 
+                            <% if(order.StatusPay == 0){ %>
+                                Chưa thanh toán
+                            <% }else if(order.StatusPay == 1){ %>
+                                Đã thanh toán
+                            <% }else{ %>
+                                Đã hoàn tiền
+                            <% } %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Trạng thái phòng:</b> 
+                            <% if(order.StatusOrder == 1){ %>
+                                Đang chờ duyệt
+                            <% }else if(order.StatusOrder == 2){ %>
+                                Đang chuẩn bị phòng
+                            <% }else if(order.StatusOrder == 3){ %>
+                                Phòng đã sẵn sàng
+                            <% }else if(order.StatusOrder == 0){ %>
+                                Đã hủy phòng
+                            <% } %>
+                        </span>
+                    </div>
+                    <% if(order.StatusPay == 0){ %>
+                        <div class="p-2 mt-4">
+                            <h4>Hình Ảnh Phòng</h4>
+                        </div> 
+                        <hr>
+                        <div class="mt-4">
+                            <img src="<%= room.Avatar %>" alt="Hình ảnh" style="max-height: 460px;">
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+
+            <div class="col-xl-5" style="background: #fff; border-radius: 8px; border: 1px solid #808385; height: FIT-CONTENT;">
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Thông Tin Phòng</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tên phòng:</b> <%= room.Name %></span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Số người:</b> Tối đa <%= room.People %> người</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Loại phòng:</b>
+                            <%= room.category.Name %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Giá phòng:</b> <%= room.Price.toLocaleString() %>đ / 1 đêm</span>
+                    </div>
+                    
+                </div>
+
+                <div class="container mt-3 mb-3">
+                    <div class="p-2">
+                        <h4>Tổng Tiền</h4>
+                    </div>  
+                    <hr>
+                    <div class="mt-4">
+                        <span><b>Tạm tính: </b> <%= room.Price.toLocaleString() %>đ x <%= numberDay %> đêm = <%= (room.Price * numberDay).toLocaleString() %>đ</span>
+                    </div>
+                    <div class="mt-4">
+                        <span>
+                            <b>Khuyến mãi: </b> 
+                            <% if (numberDay >= 7 && numberDay <= 14) { %>
+                                20%
+                            <% }else if (numberDay >= 15) { %>
+                                20%
+                            <% }else{ %>
+                                0%
+                            <% } %>
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <span><b>Tổng thanh toán: </b> <%= order.Total.toLocaleString() %>đ</span>
+                    </div>
+                </div>
+                <% if(order.StatusPay == 0){ %>
+                    <div class="container mb-3">
+                        <div class="p-2">
+                            <h4>Thanh Toán</h4>
+                        </div>  
+                        <hr>
+                        <div class="mt-2">
+                            <img src="http://127.0.0.1:3001/uploads/QRCODE.jpg" alt="">
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+            <div class="mt-5">
+                <a href="/dat-phong/tra-cuu/" class="theme-element theme-element--accent btn">Tiếp Tục Tra Cứu</a>
+            </div>
+        </div>
+    </div>
+</main>
+<%- include('../layouts/footer.ejs') %>

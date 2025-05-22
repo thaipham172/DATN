@@ -1,0 +1,182 @@
+<%- include('../layouts/header.ejs') %>
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0 font-size-18">Phòng Nghỉ</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="/admin/">Trang Chủ</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="/admin/room/">Phòng Nghỉ</a></li>
+                                <li class="breadcrumb-item active">Tiện Ích Phòng Nghỉ</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Tiện ích cho phòng: <%= room.Name %></h4>
+                        <div id="basic-datatable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <form method="POST">
+                                                <div class="form-group row">
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Mạng Wifi?</label>
+                                                        <select class="form-control" name="wifi">
+                                                            <% if(facility.Wifi == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Máy Giặt?</label>
+                                                        <select class="form-control" name="washer">
+                                                            <% if(facility.Washer == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Giường Ngủ?</label>
+                                                        <select class="form-control" name="bed">
+                                                            <% if(facility.Bed == 1){ %>
+                                                                <option value="1" selected>1 Giường Lớn</option>
+                                                                <option value="2">2 Giường Nhỏ</option>
+                                                                <option value="3">1 Giường Lớn & 2 Giường Nhỏ</option>
+                                                            <% }else if(facility.Bed == 2) { %>
+                                                                <option value="1">1 Giường Lớn</option>
+                                                                <option value="2" selected>2 Giường Nhỏ</option>
+                                                                <option value="3">1 Giường Lớn & 2 Giường Nhỏ</option>
+                                                            <% }else if(facility.Bed == 3){ %>
+                                                                <option value="1">1 Giường Lớn</option>
+                                                                <option value="2">2 Giường Nhỏ</option>
+                                                                <option value="3" selected>1 Giường Lớn & 2 Giường Nhỏ</option>
+                                                            <% }else{ %>
+                                                                <option value="1" selected>1 Giường Lớn</option>
+                                                                <option value="2">2 Giường Nhỏ</option>
+                                                                <option value="3">1 Giường Lớn & 2 Giường Nhỏ</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Dụng Cụ Tập Gym?</label>
+                                                        <select class="form-control" name="gym">
+                                                            <% if(facility.Gym == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Bếp Nấu Ăn?</label>
+                                                        <select class="form-control" name="kitchen">
+                                                            <% if(facility.Kitchen == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Điều Hòa?</label>
+                                                        <select class="form-control" name="air">
+                                                            <% if(facility.Air == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Nhân Viên Phục Vụ?</label>
+                                                        <select class="form-control" name="support">
+                                                            <% if(facility.Support == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Tủ Để Đồ?</label>
+                                                        <select class="form-control" name="storage">
+                                                            <% if(facility.Storage == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="simpleinput">Phòng Tắm?</label>
+                                                        <select class="form-control" name="bathroom">
+                                                            <% if(facility.Bathroom == 1){ %>
+                                                                <option value="1" selected>Có</option>
+                                                                <option value="0">Không</option>
+                                                            <% }else{ %>
+                                                                <option value="1">Có</option>
+                                                                <option value="0" selected>Không</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
+                                                <a href="/admin/room/"
+                                                    class="btn btn-secondary waves-effect waves-light">Quay Lại</a>
+                                                <button type="submit"
+                                                    class="btn btn-primary waves-effect waves-light">Cập Nhật
+                                                    Tiện Ích</button>
+                                            </form>
+                                        </div>
+                                        <!-- end card-body-->
+                                    </div>
+                                    <!-- end card -->
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+    </div>
+    <%- include('../layouts/footer.ejs') %>
